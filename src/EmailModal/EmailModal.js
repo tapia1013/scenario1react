@@ -52,6 +52,8 @@ const EmailModal = () => {
               className="email-modal__input" placeholder="youremail@mail.com"
               value={newState.email}
               onChange={newState.handleEmailInput}
+              onBlur={newState.checkForEmail}
+              onFocus={newState.removeErrorMessage}
             />
             <button className="email-modal__button">Send</button>
           </div>

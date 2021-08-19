@@ -9,6 +9,8 @@ export function useStateContext() {
 }
 
 
+
+
 export function EMProiver({ children }) {
   const [modalOpen, setModalOpen] = useState(false)
   // remove the class if mouse leaves window
@@ -37,15 +39,34 @@ export function EMProiver({ children }) {
   }
 
 
+  // check if its a valid email
+  const checkForEmail = (e) => {
+    console.log('checking for email');
+  }
+
+  // remove error message or validation
+  const removeErrorMessage = (e) => {
+    console.log('removing error message');
+  }
+
+
 
   return (
-    <StateContext.Provider value={{ modalOpen, email, handleEmailInput, openModalAction, closeModalAction }}>
+    <StateContext.Provider
+      value={{
+        modalOpen,
+        email,
+        handleEmailInput,
+        openModalAction,
+        closeModalAction,
+        checkForEmail,
+        removeErrorMessage
+      }}>
       {children}
     </StateContext.Provider>
   )
 
 }
-
 
 
 
