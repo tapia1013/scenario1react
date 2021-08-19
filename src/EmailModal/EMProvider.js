@@ -39,14 +39,41 @@ export function EMProiver({ children }) {
   }
 
 
+
+  const [showEmailError, setShowEmailError] = useState(false)
+
   // check if its a valid email
   const checkForEmail = (e) => {
+    function emailIsValid(text) {
+      return /\S+@\S+\.\S+/.test(text)
+    }
+    if (!emailIsValid(email)) {
+      setShowEmailError(true)
+    }
     console.log('checking for email');
   }
 
   // remove error message or validation
   const removeErrorMessage = (e) => {
+    setShowEmailError(false)
     console.log('removing error message');
+  }
+
+
+
+  // form completed state
+  const [formCompleted, setFormCompleted] = useState(false)
+
+  const submittedForm = (e) => {
+    e.preventDefault();
+
+    if (showEmailError === false && email.length > 5) {
+      setFormCompleted(true)
+
+      setTimeout(() => {
+        closeModalAction()
+      }, 3000)
+    }
   }
 
 
@@ -60,7 +87,10 @@ export function EMProiver({ children }) {
         openModalAction,
         closeModalAction,
         checkForEmail,
-        removeErrorMessage
+        showEmailError,
+        removeErrorMessage,
+        submittedForm,
+        formCompleted
       }}>
       {children}
     </StateContext.Provider>

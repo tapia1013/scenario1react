@@ -11,13 +11,9 @@ const EmailModal = () => {
     // when mouse leaves body do this event
     document.body.addEventListener('mouseleave', () => {
       // if its not = true then addmodal
-      // if (Cookies.get('modalOpenedBefore') !== 'true') {
-      //   newState.openModalAction()
-      // }
-
-
-      newState.openModalAction()
-
+      if (Cookies.get('modalOpenedBefore') !== 'true') {
+        newState.openModalAction()
+      }
     })
   }, [])
 
@@ -34,7 +30,10 @@ const EmailModal = () => {
         <i className="gg-close" />
       </div>
       <div className="email-modal__container">
-        <div className="email-modal__info">
+        <form
+          className="email-modal__info"
+          onSubmit={newState.submittedForm}
+        >
           <div className="logo">
             Berry
             <div className="logo__sub">
@@ -43,7 +42,11 @@ const EmailModal = () => {
           </div>
           <h2>Don't miss this chance!</h2>
           <p className="email-modal__message">Join our amazing community of more than <span className="email-modal__highlight-text">300,000 woman</span> who love fashion and receive <span className="email-modal__highlight-text">notifications, discounts, and our award winning newsletter.</span></p>
-          <div className="email-modal__error-message">
+          <div
+            className={
+              `email-modal__error-message ${newState.showEmailError ? 'email-modal__error-message--active' : ''}`
+            }
+          >
             Sorry this is not a valid email
           </div>
           <div className="email-modal__form-group">
@@ -55,17 +58,20 @@ const EmailModal = () => {
               onBlur={newState.checkForEmail}
               onFocus={newState.removeErrorMessage}
             />
-            <button className="email-modal__button">Send</button>
+            <button
+              className="email-modal__button"
+              type="submit"
+            >Send</button>
           </div>
           <div
             className="email-modal__decline-offer"
             onClick={newState.closeModalAction}
           >Sorry, I'm not interested</div>
-        </div>
+        </form>
         <div className="email-modal__side-img">
           <img src="img/pexels-photo-4462782.jpeg" />
         </div>
-        <div className="email-thank">
+        <div className={`email-thank ${newState.formCompleted ? 'email-thank--success' : ''}`}>
           <div className="email-thank__title">
             Thank You
           </div>
